@@ -6,4 +6,5 @@ log_format = u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(m
 log_level = 30
 etcd_host='127.0.0.1'
 etcd_port=2379
+etcd_dir='/hubernetes'
 debug = True
