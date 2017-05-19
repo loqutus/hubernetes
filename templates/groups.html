@@ -3,19 +3,25 @@
 <script>
     $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
 </script>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
             <table class="table table-hover text-centered">
                 <div class="thead">
                     <tr>
-                        <th>Host</th>
+                        <th>name</th>
+                        <th>instances</th>
+                        <th>image</th>
+                        <th>command</th>
                     </tr>
                 </div>
                 <tbody>
-                {% for host in hosts %}
+                {% for group_name, group_params in groups.items() %}
                 <tr>
-                    <td>{{ host }}</td>
+                    <td>{{ group_name }}</td>
+                    <td>{{ group_params['instances'] }}</td>
+                    <td>{{ group_params['image'] }}</td>
+                    <td>{{ group_params['command'] }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>

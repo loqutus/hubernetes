@@ -1,41 +1,30 @@
 {% extends 'common.html' %}
 {% block body %}
-<div class="container">
+<script>
+    $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
+</script>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-6" >
-            <table class="table">
+        <div class="col-md-6">
+            <table class="table table-hover text-centered">
                 <div class="thead">
                     <tr>
-                        <th>host</th>
-                        <th>name</th>
-                        <th>cpus</th>
-                        <th>cpu_usage</th>
-                        <th>mem_lim</th>
-                        <th>mem_used</th>
-                        <th>mem_max</th>
-                        <th>tx</th>
-                        <th>rx</th>
+                        <th>containers</th>
+                        <th>hosts</th>
+                        <th>groups</th>
+                        <th>images</th>
                     </tr>
                 </div>
                 <tbody>
-                {% for host_name, host_containers in containers.items()%}
-                {% for container in host_containers %}
                 <tr>
-                    <td>{{ host_name }}</td>
-                    <td>{{ container['name'] }}</td>
-                    <td>{{ container['cpus'] }}</td>
-                    <td>{{ container['cpu_usage'] }}</td>
-                    <td>{{ container['memory_limit'] }}</td>
-                    <td>{{ container['memory_used'] }}</td>
-                    <td>{{ container['memory_max_usage'] }}</td>
-                    <td>{{ container['tx'] }}</td>
-                    <td>{{ container['rx'] }}</td>
+                    <td>{{ info['containers'] }}</td>
+                    <td>{{ info['hosts'] }}</td>
+                    <td>{{ info['groups'] }}</td>
+                    <td>{{ info['images'] }}</td>
                 </tr>
-                {% endfor %}
-                {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-{%endblock %}
+{% endblock %}
