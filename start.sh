@@ -8,5 +8,5 @@ sleep 1
 etcdctl mkdir /hubernetes
 etcdctl set /hubernetes/hosts '{"localhost": "unix://var/run/docker.sock"}'
 etcdctl set /hubernetes/images '["alpine:latest"]'
-etcdctl set /hubernetes/groups '{"test":{"image":"alpine:latest", "instances":"4", "command":"/bin/sleep 60"}}'
+etcdctl set /hubernetes/groups '{"test":{"image":"alpine:latest", "instances":"1", "command":"/bin/sleep 20"}}'
 ./hubernetes.py

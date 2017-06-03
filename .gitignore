@@ -1,0 +1,4 @@
+etcd/*
+__pycache__/*
+.idea/*
+hubernetes.log
