@@ -5,14 +5,11 @@
     - ntp
     - atop
     - docker.io
-    #- libboost-program-options1.58.0
-    #- libboost-system1.58.0
-    #- libboost-thread1.58.0
     - byobu
     - cpuburn
     - strace
-    #- libcurlpp0
     - nload
+    - tmux
   tags: packages
 
 - name: pi names in hosts
@@ -67,5 +64,5 @@
   when: sshd_config.changed
 
 - name: docker bash alias
-  lineinfile: path=/home/rusik/.bashrc line='alias docker="docker -H 127.0.0.1:7777 "'
+  lineinfile: dest=/home/rusik/.bashrc line='alias docker="docker -H 127.0.0.1:7777 "'
   
