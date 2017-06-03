@@ -1,0 +1,71 @@
+---
+- name: install packages
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+    - ntp
+    - atop
+    - docker.io
+    #- libboost-program-options1.58.0
+    #- libboost-system1.58.0
+    #- libboost-thread1.58.0
+    - byobu
+    - cpuburn
+    - strace
+    #- libcurlpp0
+    - nload
+  tags: packages
+
+- name: pi names in hosts
+  lineinfile: dest=/etc/hosts line={{item}}
+  with_items:
+    - 192.168.0.1 pi1
+    - 192.168.0.2 pi2
+    - 192.168.0.3 pi3
+    - 192.168.0.4 pi4
+    - 192.168.0.5 pi5
+  tags: hosts
+
+- name: copy sudoers file
+  copy: src=sudoers dest=/etc/sudoers force=yes mode=0440
+  tags: sudoers
+
+- name: remove swap file
+  lineinfile: dest=/etc/fstab state=absent line='/var/swap none swap sw 0 0'
+  register: swap_fstab
+
+- name: disable swap
+  shell: swapoff -a
+  when: swap_fstab.changed
+
+- name: rm swap
+  file: dest=/var/swap state=absent force=yes
+  when: swap_fstab.changed
+
+- name: copy vimrc
+  copy: src=vimrc dest=/home/rusik/.vimrc
+
+- name: copy docker defaults
+  copy: src=docker dest=/etc/default/docker
+  register: docker_file
+
+- name: restart docker on defaults file change
+  service: name=docker state=restarted
+  when: docker_file.changed
+
+- name: copy burn.sh
+  copy: src=burn.sh dest=/usr/local/bin/burn.sh mode=755 owner=root
+
+- name: copy temp.sh
+  copy: src=temp.sh dest=/usr/local/bin/temp.sh mode=755 owner=root
+
+- name: UseDNS no in sshd config
+  lineinfile: dest=/etc/ssh/sshd_config state=present line='UseDNS no'
+  register: sshd_config
+
+- name: restart sshd on ssh_config change
+  service: name=ssh state=restarted
+  when: sshd_config.changed
+
+- name: docker bash alias
+  lineinfile: path=/home/rusik/.bashrc line='alias docker="docker -H 127.0.0.1:7777 "'
+  

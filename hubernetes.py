@@ -4,12 +4,10 @@ from threading import Thread
 from scheduler import Scheduler
 import etcd
 import settings
-import json
 import sys
 import logging
 from web import app
 from docker_client import docker_client
-import etcd
 
 logging.basicConfig(filename=settings.log_name, level=settings.log_level,
                     format=u'[%(asctime)s] %(filename)s:%(lineno)d %(levelname)-8s %(message)s', )

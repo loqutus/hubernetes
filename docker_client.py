@@ -2,6 +2,7 @@ import docker
 import json
 import settings
 import etcd
+from logging import debug
 
 
 class DockerClient:
@@ -51,6 +52,7 @@ class DockerClient:
                      'cpus': cpus,
                      'rx': net_rx,
                      'tx': net_tx})
+        debug(self.running_containers)
         return self.running_containers
 
     def get_running_containers_by_groups(self):
