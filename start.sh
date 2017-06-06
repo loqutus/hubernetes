@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
 set -x
 > hubernetes.log
-pkill etcd
-cd etcd
-etcd 2>/dev/null >/dev/null &
-cd ..
-sleep 1
 etcdctl mkdir /hubernetes
-etcdctl set /hubernetes/hosts '{"localhost": "unix://var/run/docker.sock"}'
-etcdctl set /hubernetes/images '["alpine:latest"]'
-etcdctl set /hubernetes/groups '{"test1":{"image":"alpine:latest", "instances":"10", "command":"/bin/sleep 60"}, "test2":{"image":"alpine:latest", "instances":"10", "command":"/bin/sleep 60"}}'
+etcdctl set /hubernetes/hosts '[{"pi1": "pi1:7777"}, {"pi2": "pi2:7777"}, {"pi3": "pi3:7777"}, {"pi4": "pi4:7777"}, {"pi5": "pi5:7777"}]'
+etcdctl set /hubernetes/images '["sleep"]'
+etcdctl set /hubernetes/groups '{"test1":{"image":"sleep", "instances":"5", "command":"/bin/sleep 60"}}'
 ./hubernetes.py

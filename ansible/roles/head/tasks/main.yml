@@ -16,7 +16,14 @@
       - telnet
       - tcpdump
       - iptables-persistent
+      - etcd
+      - python3-etcd
+      - python3-flask
+      - python3-setuptools
 
+
+- name: pip install docker
+  pip: executable=pip3 name=docker
 
 - name: enable ip_forward
   lineinfile: dest=/etc/sysctl.conf state=present line='net.ipv4.ip_forward = 1'

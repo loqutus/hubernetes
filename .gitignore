@@ -3,3 +3,4 @@ __pycache__/*
 .idea/*
 hubernetes.log
 ansible/*.retry
+*.swp

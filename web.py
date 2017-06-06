@@ -11,7 +11,7 @@ def flask_index():
 
 @app.route('/containers')
 def flask_containers():
-    return render_template('containers.html', containers=docker_client.get_running_containers())
+    return render_template('containers.html', containers=docker_client.get_containers_info())
 
 
 @app.route('/hosts')
