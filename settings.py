@@ -7,3 +7,5 @@ etcd_host = '127.0.0.1'
 etcd_port = 2379
 etcd_dir = '/hubernetes'
 docker_version = '1.24'
+docker_timeout = 10
+docker_retry = 3
